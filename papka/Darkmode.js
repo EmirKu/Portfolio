@@ -1,28 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Mode Toggle</title>
-    <style>
-        body {
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .dark-mode {
-            background-color: #121212;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <button id="toggleDarkMode">Toggle Dark Mode</button>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.createElement("button");
+    toggleButton.id = "toggleDarkMode";
+    toggleButton.textContent = "Toggle Dark Mode";
+    document.body.prepend(toggleButton);
 
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-        }
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
 
-        document.getElementById("toggleDarkMode").addEventListener("click", toggleDarkMode);
-    </script>
-</body>
-</html>
+        // Save the user's preference in local storage
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("darkMode", "enabled");
+        } else {
+            localStorage.setItem("darkMode", "disabled");
+        }
+    }
+
+    // Check if dark mode was previously enabled
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+
+    // Attach event listener to button
+    toggleButton.addEventListener("click", toggleDarkMode);
+});
